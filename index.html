@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo: Mobile catalog</title>
+    <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+</head>
+<body ng-app="searchApp" ng-controller="SearchController">
+<div id="kupovina">
+	<div class="left">
+		<img id="slika" src="https://aloalo.hr/upload/catalog/product/8317/thumb/1559677635_0214811_550xr.jpg">
+		<img class="icon" src="https://aloalo.hr/upload/catalog/attributes/smartphone-59e07723df41e_5a153c1a64f85.svg">
+		<img class="icon" src="https://aloalo.hr/upload/catalog/attributes/processor-59e07758d8fd7_5a153c4288990.svg">
+		<img class="icon" src="https://aloalo.hr/upload/catalog/attributes/cam_59e07761da8c9.svg">
+		<img class="icon" src="https://aloalo.hr/upload/catalog/attributes/battery_59e885af72e03.svg">
+		<br><span id="display"style="margin-left:22px;">5.5"</span><span id="ram"style="margin-left:12px;">8GB</span><span id="camera" style="margin-left:11px;">16MP</span><span id="batery"style="margin-left:8px;">4100</span>
+	</div>
+	<div class="right">
+		<span onclick="$('#kupovina').hide('slow');$('.search-box').show('normal');$('ul').show('slow')">X</span>
+		<p id="brand" style="color:#fff">Brand mobitela</p>
+		<p id="model" style="color:#fff">Model mobitela</p>
+		<p id="cijena" style="color:#17a617">Cijena mobitela</p>
+		<p>Name and Surname</p>
+		<input type="text">
+		<p>Phone number</p>
+		<input type="text">
+		<p>Adress</p>
+		<input type="text"><br><br>
+		<a href="">Buy Phone</a>
+	</div>
+</div>
+<header>
+	<div class="search-box">
+        <input class="search-txt" type="text" name="" placeholder="Type to search..." ng-model="searchString">
+        <a class="search-btn" href="#">
+            <i class="fas fa-search"></i>
+        </a>
+    </div>
+</header>
+<ul>
+	<li class="stavke"ng-repeat="item in items | searchFor:searchString">
+		<h3>{{item.name}}</h3>
+		<p>{{item.brand}}</p>
+		<p>Price:<span>{{item.cijena}}</span></p>
+		<img ng-src="{{item.image}}">
+		<a href="#" ng-click="buy(item.name,item.brand,item.cijena,item.image,item.display,item.ram,item.camera,item.batery)">Buy</a>
+	</li>
+</ul>
+<script>				
+	var searchApp = angular.module("searchApp", []);
+	searchApp.controller("SearchController", function($scope){
+		$scope.buy = function(name,brand,cijena,image,display,ram,camera,batery) {
+        	$('ul').hide('show');
+        	$('.search-box').hide('normal');
+        	$('#kupovina').show('slow');
+        	$('#brand').text(name);
+        	$('#model').text(brand);
+        	$('#cijena').text(cijena);
+        	$('#slika').attr('src',image);
+        	$('#display').text(display+"''");
+        	$('#ram').text(ram);
+        	$('#camera').text(camera);
+        	$('#batery').text(batery);
+    	};
+		$scope.items = [
+			{
+				name: "Alcatel",
+				brand: "1S DS 5024D",
+				cijena: "121,77€",
+				image:"https://aloalo.hr/upload/catalog/product/8039/thumb/1557228489_9990472_290x290r.jpg",
+				display:"5.5",
+				ram:"3GB",
+				camera:"13MP",
+				batery:"3060"
+			},
+			{
+				name: "Alcatel",
+				brand: "5080 Shine LITE",
+				cijena: "94,38€",
+				image:"https://aloalo.hr/upload/catalog/product/8425/thumb/1560871916_0201888_470xr.jpg",
+				display:"5.0",
+				ram:"2GB",
+				camera:"13MP",
+				batery:"2460"
+			},
+			{
+				name: "Apple",
+				brand: "Iphone XS MAX 64GB",
+				cijena: "1321,80€",
+				image:"https://aloalo.hr/upload/catalog/product/7416/thumb/1549368393_0903208_550xr.jpg",
+				display:"6.5",
+				ram:"4GB",
+				camera:"12MP",
+				batery:"3174"
+			},
+			{
+				name: "Apple",
+				brand: "Iphone 7 Plus 128GB",
+				cijena: "710,62€",
+				image: "https://aloalo.hr/upload/catalog/product/8449/thumb/1561645864_0903256_470xr.jpg",
+				display:"5.5",
+				ram:"3GB",
+				camera:"12MP",
+				batery:"2900"
+			},
+			{
+				name: "Apple",
+				brand: "Iphone 8 Plus 64GB",
+				cijena: "808,97€",
+				image: "https://aloalo.hr/upload/catalog/product/6874/thumb/1536416890_0903163_550xr.jpg",
+				display:"5.5",
+				ram:"3GB",
+				camera:"12MP",
+				batery:"2691"
+			},
+			{
+				name: "Apple",
+				brand: "Iphone XR 128GB",
+				cijena: "949,78€",
+				image: "https://aloalo.hr/upload/catalog/product/7287/thumb/1545991947_0903205_550xr.jpg",
+				display:"6.1",
+				ram:"3GB",
+				camera:"12MP",
+				batery:"2942"
+			},
+			{
+				name: "Apple",
+				brand: "Iphone 8 Plus 256GB",
+				cijena: "1002,93€",
+				image: "https://aloalo.hr/upload/catalog/product/8616/thumb/1563974798_0903274_470xr.jpg",
+				display:"5.5",
+				ram:"3GB",
+				camera:"12MP",
+				batery:"2691"
+			},
+			{
+				name: "Doogee",
+				brand: "MIX Lite",
+				cijena: "82,05€",
+				image: "https://aloalo.hr/upload/catalog/product/3662/thumb/1513578952_0206132_550xr.jpg",
+				display:"5.2",
+				ram:"2GB",
+				camera:"13MP",
+				batery:"3080"
+			},
+			{
+				name: "Honor",
+				brand: "10 Lite DS 3/64GB",
+				cijena: "175,19€",
+				image: "https://aloalo.hr/upload/catalog/product/7890/thumb/1553255471_0213214_550xr.jpg",
+				display:"6.2",
+				ram:"3GB",
+				camera:"13MP",
+				batery:"3400"
+			},
+			{
+				name: "Honor",
+				brand: "8x 4/64",
+				cijena: "212,45€",
+				image: "https://aloalo.hr/upload/catalog/product/8317/thumb/1559677635_0214811_550xr.jpg",
+				display:"6.5",
+				ram:"4GB",
+				camera:"20MP",
+				batery:"3750"
+			},
+			{
+				name: "Honor",
+				brand: "V20 128GB DS",
+				cijena: "546,39€",
+				image: "https://aloalo.hr/upload/catalog/product/8508/thumb/1561996939_0233156_470xr.jpg",
+				display:"6.4",
+				ram:"6GB",
+				camera:"48MP",
+				batery:"4000"
+			},
+			{
+				name: "HTC",
+				brand: "DESIRE 828",
+				cijena: "157,93€",
+				image: "https://aloalo.hr/upload/catalog/product/3674/thumb/1513608856_0701157_550xr.jpg",
+				display:"5.5",
+				ram:"2GB",
+				camera:"13MP",
+				batery:"2800"
+			},
+			{
+				name: "Huawei",
+				brand: "Mate20 Lite DS",
+				cijena: "237,65€",
+				image: "https://aloalo.hr/upload/catalog/product/7254/thumb/1545062915_0901506_550xr.jpg",
+				display:"6.3",
+				ram:"4GB",
+				camera:"20MP",
+				batery:"3750"
+			},
+			{
+				name: "Huawei",
+				brand: "P20 Lite DS 64GB",
+				cijena: "239,02€",
+				image: "https://aloalo.hr/upload/catalog/product/6697/thumb/1545666523_0901441_550xr.jpg",
+				display:"5.8",
+				ram:"4GB",
+				camera:"16MP",
+				batery:"3000"
+			},
+			{
+				name: "Huawei",
+				brand: "P30 Lite DS 4/128GB",
+				cijena: "345,31€",
+				image: "https://aloalo.hr/upload/catalog/product/8093/thumb/1558015119_0214827_550xr.jpg",
+				display:"6.15",
+				ram:"4GB",
+				camera:"48MP",
+				batery:"3340"
+			},
+			{
+				name: "Huawei",
+				brand: "P30 DS 6/128",
+				cijena: "662,82€",
+				image: "https://aloalo.hr/upload/catalog/product/8314/thumb/1559674714_0214852_550xr.jpg",
+				display:"6.1",
+				ram:"6GB",
+				camera:"40MP",
+				batery:"3650"
+			},
+			{
+				name: "Huawei",
+				brand: "Mate20 Pro DS",
+				cijena: "698,57€",
+				image: "https://aloalo.hr/upload/catalog/product/8227/thumb/1558597840_0234973_550xr.jpg",
+				display:"6.39",
+				ram:"6GB",
+				camera:"40MP",
+				batery:"4200"
+			},
+			{
+				name: "Huawei",
+				brand: "P30 Pro DS 8/256",
+				cijena: "968,41€",
+				image: "https://aloalo.hr/upload/catalog/product/7908/thumb/1560184719_0214807_550xr.jpg",
+				display:"6.47",
+				ram:"8GB",
+				camera:"40MP",
+				batery:"4200"
+			},
+			{
+				name: "LG",
+				brand: "Q6",
+				cijena: "135,45€",
+				image: "https://aloalo.hr/upload/catalog/product/8537/thumb/1562668610_0250095_470xr.jpg",
+				display:"5.5",
+				ram:"3GB",
+				camera:"13MP",
+				batery:"3000"
+			},
+			{
+				name: "LG",
+				brand: "K4 2017",
+				cijena: "98,47€",
+				image: "https://aloalo.hr/upload/catalog/product/8548/thumb/1562911348_0901616_470xr.jpg",
+				display:"5.0",
+				ram:"1GB",
+				camera:"5MP",
+				batery:"2500"
+			},
+			{
+				name: "Nokia",
+				brand: "3 SS",
+				cijena: "108,06€",
+				image: "https://aloalo.hr/upload/catalog/product/3718/thumb/1513678273_0905018_550xr.png",
+				display:"5.0",
+				ram:"2GB",
+				camera:"8MP",
+				batery:"2630"
+			},
+			{
+				name: "Nokia",
+				brand: "6.1 DS",
+				cijena: "294,32€",
+				image: "https://aloalo.hr/upload/catalog/product/7573/thumb/1549961860_0234938_550xr.jpg",
+				display:"5.5",
+				ram:"3GB",
+				camera:"16MP",
+				batery:"3000"
+			},
+			{
+				name: "Nokia",
+				brand: "7.1 DS",
+				cijena: "397,03€",
+				image: "https://aloalo.hr/upload/catalog/product/7542/thumb/1549632427_0234988_550xr.jpg",
+				display:"5.84",
+				ram:"4GB",
+				camera:"12MP",
+				batery:"3060"
+			},
+			{
+				name: "OnePlus",
+				brand: "6T 6/128",
+				cijena: "644,10€",
+				image: "https://aloalo.hr/upload/catalog/product/7541/thumb/1558597928_0234989_550xr.jpg",
+				display:"6.4",
+				ram:"6GB",
+				camera:"16MP",
+				batery:"3700"
+			},
+			{
+				name: "OnePlus",
+				brand: "7 Pro 8/256",
+				cijena: "862,68€",
+				image: "https://aloalo.hr/upload/catalog/product/8316/thumb/1559676879_0213220_550xr.jpg",
+				display:"6.67",
+				ram:"8GB",
+				camera:"48MP",
+				batery:"4000"
+			},
+			{
+				name: "Samsung",
+				brand: "A50 DS",
+				cijena: "321,16€",
+				image: "https://aloalo.hr/upload/catalog/product/8180/thumb/1558517548_0901594_550xr.jpg",
+				display:"6.4",
+				ram:"4GB",
+				camera:"25MP",
+				batery:"4000"
+			},
+			{
+				name: "Samsung",
+				brand: "S8 G950",
+				cijena: "458,12€",
+				image: "https://aloalo.hr/upload/catalog/product/981/thumb/1511986385_0901343_550xr.png",
+				display:"5.8",
+				ram:"4GB",
+				camera:"12MP",
+				batery:"3000"
+			},
+			{
+				name: "Samsung",
+				brand: "A80",
+				cijena: "622,87€",
+				image: "https://aloalo.hr/upload/catalog/product/8547/thumb/1562773189_0214881_470xr.jpg",
+				display:"6.7",
+				ram:"8GB",
+				camera:"48MP",
+				batery:"3700"
+			},
+			{
+				name: "Samsung",
+				brand: "S9+ G965",
+				cijena: "630,82€",
+				image: "https://aloalo.hr/upload/catalog/product/7035/thumb/1539178059_0901498_550xr.jpg",
+				display:"6.2",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"3500"
+			},
+			{
+				name: "Samsung",
+				brand: "S9+ SS G965",
+				cijena: "697,24€",
+				image: "https://aloalo.hr/upload/catalog/product/6702/thumb/1535034975_0901482_550xr.jpg",
+				display:"6.2",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"3500"
+			},
+			{
+				name: "Samsung",
+				brand: "S10 DS",
+				cijena: "790,23€",
+				image: "https://aloalo.hr/upload/catalog/product/8419/thumb/1560165655_0901601_550xr.jpg",
+				display:"6.1",
+				ram:"8GB",
+				camera:"12MP",
+				batery:"3400"
+			},
+			{
+				name: "Samsung",
+				brand: "Note9 N960",
+				cijena: "796,94€",
+				image: "https://aloalo.hr/upload/catalog/product/7853/thumb/1551804161_0901524_550xr.jpg",
+				display:"6.4",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"4000"
+			},
+			{
+				name: "Samsung",
+				brand: "S10+ DS",
+				cijena: "888,57€",
+				image: "https://aloalo.hr/upload/catalog/product/8459/thumb/1561742296_0901633_470xr.jpg",
+				display:"6.4",
+				ram:"8GB",
+				camera:"12MP",
+				batery:"4100"
+			},
+			{
+				name: "Vivax",
+				brand: "Fun S20",
+				cijena: "77,93€",
+				image: "https://aloalo.hr/upload/catalog/product/5141/thumb/1518617116_0216371_550xr.jpg",
+				display:"5.0",
+				ram:"1GB",
+				camera:"5MP",
+				batery:"2000"
+			},
+			{
+				name: "Vivax",
+				brand: "Point X2",
+				cijena: "109,43€",
+				image: "https://aloalo.hr/upload/catalog/product/7685/thumb/1551112532_0216389_550xr.jpg",
+				display:"5.47",
+				ram:"3GB",
+				camera:"13MP",
+				batery:"4000"
+			},
+			{
+				name: "Vivax",
+				brand: "Smart Fly5Lite",
+				cijena: "123,12€",
+				image: "https://aloalo.hr/upload/catalog/product/8579/thumb/1563466868_0216403_470xr.jpg",
+				display:"5.7",
+				ram:"3GB",
+				camera:"13MP",
+				batery:"3000"
+			},
+			{
+				name: "Xiaomi",
+				brand: "Mi A2",
+				cijena: "244,19€",
+				image: "https://aloalo.hr/upload/catalog/product/6880/thumb/1536846132_0903187_550xr.jpg",
+				display:"5.99",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"3000"
+			},
+			{
+				name: "Xiaomi",
+				brand: "Mi A2",
+				cijena: "244,19€",
+				image: "https://aloalo.hr/upload/catalog/product/8058/thumb/1557348119_0903191_550xr.jpg",
+				display:"5.99",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"3000"
+			},
+			{
+				name: "Xiaomi",
+				brand: "PocoPhone F1",
+				cijena: "357,18€",
+				image: "https://aloalo.hr/upload/catalog/product/7495/thumb/1549540413_0901561_550xr.jpg",
+				display:"6.18",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"4000"
+			},
+			{
+				name: "Xiaomi",
+				brand: "Mi 8",
+				cijena: "430,18€",
+				image: "https://aloalo.hr/upload/catalog/product/7898/thumb/1553604658_0901535_550xr.jpg",
+				display:"6.2",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"3400"
+			},
+			{
+				name: "Xiaomi",
+				brand: "Mi Mix3",
+				cijena: "484,68€",
+				image: "https://aloalo.hr/upload/catalog/product/7580/thumb/1550059803_0903215_550xr.jpg",
+				display:"6.39",
+				ram:"6GB",
+				camera:"12MP",
+				batery:"3200"
+			},
+			{
+				name: "Xiaomi",
+				brand: "Mi 8 PRO DS",
+				cijena: "504,68€",
+				image: "https://aloalo.hr/upload/catalog/product/7303/thumb/1546508436_0901536_550xr.jpg",
+				display:"6.2",
+				ram:"8GB",
+				camera:"12MP",
+				batery:"3000"
+			},
+			{
+				name: "Xiaomi",
+				brand: "Mi 9",
+				cijena: "503,31€",
+				image: "https://aloalo.hr/upload/catalog/product/8526/thumb/1562236656_0901636_470xr.jpg",
+				display:"6.39",
+				ram:"6GB",
+				camera:"48MP",
+				batery:"3300"
+			},
+			{
+				name: "ZTE",
+				brand: "Blade A310 DS",
+				cijena: "61,49€",
+				image: "https://aloalo.hr/upload/catalog/product/1878/thumb/1511536703_0206105_550xr.jpg",
+				display:"5 ",
+				ram:"1GB ",
+				camera:"8MP ",
+				batery:"2200"
+			}
+		]
+	});
+	searchApp.filter("searchFor", function(){
+		return function(arr, searchString){
+			if(!searchString){
+				return arr;
+			}
+			result = [];
+			searchString = searchString.toLowerCase();
+			angular.forEach(arr, function(tel){
+				if(tel.name.toLowerCase().indexOf(searchString) !== -1){
+					result.push(tel);
+				}
+			});
+			return result;
+		}
+	});
+</script>
+</body>
+</html>
